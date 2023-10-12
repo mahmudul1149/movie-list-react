@@ -5,6 +5,7 @@ import axios from "axios";
 export default function Todos() {
   const [todos, setTodos] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [title, setTitle] = useState("");
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -21,6 +22,17 @@ export default function Todos() {
     };
     fetchTodos();
   }, []);
+  const submitTodos = async () => {
+    try {
+      await axios.post(`https://backend-api-si97.onrender.com/todo`, {
+        title: title,
+      });
+      const newTodos = {
+        title: title,
+      };
+      setTodos((preTodos) => [...preTodos, newTodos]);
+    } catch (error) {}
+  };
   return (
     <div>
       <h1 className="h-[100vh] bg-[#262626] flex items-center justify-center">
@@ -35,8 +47,12 @@ export default function Todos() {
               id=""
               className="w-full py-2 px-2 rounded"
               placeholder="Insert your todo"
+              onChange={(e) => setTitle(e.target.value)}
             />
-            <button className="bg-[#44403c] text-white opacity-90 py-2 px-4 rounded">
+            <button
+              onClick={submitTodos}
+              className="bg-[#44403c] text-white opacity-90 py-2 px-4 rounded"
+            >
               Submit
             </button>
           </div>
