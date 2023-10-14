@@ -1,18 +1,20 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"; // Import BrowserRouter from react-router-dom
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Home from "../src/pages/todos";
+import Header from "./components/Header";
+import Signin from "./pages/signin";
+import Home from "./pages/todos";
 
 import "./App.css";
 
 function App() {
   return (
     <>
+      <Header />
       <BrowserRouter>
         {" "}
-        {/* Wrap your Routes with BrowserRouter */}
         <Routes>
           <Route exact path="/" element={<Home />} />{" "}
-          {/* Use "element" prop for the component */}
+          <Route path="/signin" element={<Signin />} />{" "}
         </Routes>
       </BrowserRouter>
     </>
