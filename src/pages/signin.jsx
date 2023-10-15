@@ -1,4 +1,14 @@
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth } from "../firebase.js";
 export default function Signin() {
+  const [signinWithGoogle] = useSignInWithGoogle(auth);
+  const signInWithGoogleHandler = () => {
+    try {
+      signinWithGoogle();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className=" bg-[#262626]  flex justify-center items-center h-[calc(100vh-60px)] overflow-hidden p-10">
       <div className="max-w-[600px] shadow-lg bg-[#0a0a0a] text-white rounded-[12px] p-9 gap-[56px]">
@@ -43,7 +53,10 @@ export default function Signin() {
               </clipPath>
             </defs>
           </svg>
-          <p className="ml-2 text-[16px] font-[500] leading[24px] gap-[14px]">
+          <p
+            className="ml-2 text-[16px] font-[500] leading[24px] gap-[14px]"
+            onClick={signInWithGoogleHandler}
+          >
             Sign in with Google
           </p>
         </button>
